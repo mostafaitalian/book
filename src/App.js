@@ -207,11 +207,12 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    showSearchPage: false,
+    likes:[],
     books:[],
     selectedShelf: {book:{}, selectValue:''},
     shelfChoices:['none', 'read', 'currentlly Reading', 'want to read', 'move']
   }
+
   componentDidMount(){
   	const booksSite = getAll();
      booksSite.then(books=>(this.setState({books:books})));
@@ -223,15 +224,31 @@ class BooksApp extends React.Component {
   this.setState((cur)=>({books:cur.books.filter(b=>b.id!==book.id).concat([book])}))
 }
 updateBooksState=(book)=>this.setState((cur)=>({books:cur.books.filter(b=>b.id!==book.id).concat([book])}))
-
+addLikes= (id)=>{
+  for(let x of this.state.likes){
+    if(x.id===id){
+      
+      //let nol = (x.likes)++;
+      const likess = [...this.state.likes.filter(like=>like.id !== id), {id:id,likes:(x.likes+1) }];
+      this.setState({likes:likess})
+      console.log(likess)
+      return  likess;
+    }
+  }
+   const likess = [...this.state.likes, {id:id, likes:1}];
+  console.log(likess);
+  this.setState({likes:likess});
+  return likess;
+  }
 	  render() {
     
     return (
       <div className="app">
        {/* <Link to='/search' className='btn btn-primary'>Search</Link> */}
-       <Route exact path='/search' render={()=>(<SearchPage updateBookState={(book)=>this.updateBooksState(book)} selectedShelf={this.state.selectedShelf} handleSelect={this.handleSelectedShelf} books={this.state.books}/>)} />
-       <Route exact path='/' render={()=>(<BookList updateBookState={(book)=>this.updateBooksState(book)} selectedShelf={this.state.selectedShelf} handleSelect={this.handleSelectedShelf} books={this.state.books}/>)} />
+       <Route exact path='/search' render={()=>(<SearchPage likes={this.state.likes} handleLikes={(id)=>this.addLikes(id)} updateBookState={(book)=>this.updateBooksState(book)} selectedShelf={this.state.selectedShelf} handleSelect={this.handleSelectedShelf} books={this.state.books}/>)} />
+       <Route exact path='/' render={()=>(<BookList likes={this.state.likes} handleLikes={(id)=>this.addLikes(id)} updateBookState={(book)=>this.updateBooksState(book)} selectedShelf={this.state.selectedShelf} handleSelect={this.handleSelectedShelf} books={this.state.books}/>)} />
 {/* <ul>{this.state.books.map((book)=>(<li key={book.title}>{book.title} {book.shelf}</li>))}</ul> */}
+      <div>{JSON.stringify(this.state.likes)}</div>
       </div>
     )
   }

@@ -14,9 +14,14 @@ return(<div>
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
+                  <div>
+                    <ol>
+{this.props.likes.map(like=><li key={like.id}>{like.likes}-{like.id}</li>)}
+                    </ol>
+                  </div>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                {books.filter(book=>book.shelf.toLowerCase()==='currentlyreading').map(book=>(<li key={book.id}><Book updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf} book={book}/></li>))}
+                {books.filter(book=>book.shelf.toLowerCase()==='currentlyreading').map(book=>(<li key={book.id}><Book likes={this.props.likes} handleLikes={this.props.handleLikes} updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf} book={book}/></li>))}
                     </ol>
                   </div>
                 </div>
@@ -24,7 +29,7 @@ return(<div>
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                {books.filter(book=>book.shelf.toLowerCase()==='wanttoread').map(book=>(<li key={book.id}><Book updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf} book={book}/></li>))}
+                {books.filter(book=>book.shelf.toLowerCase()==='wanttoread').map(book=>(<li key={book.id}><Book updateBookState={this.props.updateBookState} likes={this.props.likes} handleLikes={this.props.handleLikes} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf} book={book}/></li>))}
 
                     </ol>
                   </div>
@@ -33,7 +38,7 @@ return(<div>
                   <h2 className="bookshelf-title">Read</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-       {books.filter(book=>book.shelf.toLowerCase()==='read').map(book=>(<li key={book.id}><Book updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf} book={book}/></li>))}
+       {books.filter(book=>book.shelf.toLowerCase()==='read').map(book=>(<li key={book.id}><Book updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} likes={this.props.likes} handleLikes={this.props.handleLikes} seletedS={this.props.selectedShelf} book={book}/></li>))}
 
                     </ol>
                   </div>

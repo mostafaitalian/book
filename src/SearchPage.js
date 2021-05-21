@@ -88,7 +88,7 @@ return(
   //     <li key={book.id}><Book book={book}/></li>)
   // 
 resultBooks.filter(book=>getSafe(book, defaultValuee).title.trim().toLowerCase().includes(getSafe(this.state.searchValue.toLowerCase(),'x')))
-.map(book=><li key={book.id}><Book updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf} book={book} /></li>)
+.map(book=><li key={book.id}><Book updateBookState={this.props.updateBookState} handleSelect={this.props.handleSelect} likes={this.props.likes} handleLikes={this.props.handleLikes} handleSelect={this.props.handleSelect} seletedS={this.props.selectedShelf}   book={book} /></li>)
 }
   </div>
   </div>

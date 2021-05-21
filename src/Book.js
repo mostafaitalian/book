@@ -62,15 +62,27 @@ handleOnChange=(event) =>{
     this.props.updateBookState(this.props.book);
     //const bs = search('t').then(bbs=>console.log(bbs))
 }
+handleL = (event)=>{
+  event.preventDefault();
+  this.props.handleLikes(this.props.book.id);
+  console.log('likes')
+}
 
 //{`${book.imageLinks.thumbnail}`}  
 render(){
-const {book}= this.props;
+const {book, likes}= this.props;
+//const noOfLikes = likes.filter((like)=>like.id===book.id)[0].likes;
 const full = `url('${getSafe(book.imageLinks,defaultValuee.imageLinks).thumbnail}')`;
 return(
       <div className="book">
           <div className="book-top">
+          <div className='book-shelf-like' style={{float:'left'}}>
+                              <form onSubmit={(event)=>this.handleL(event)} >
+                          <button></button>
+                          </form>
+                          </div>
                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: full }}></div>
+                            
                             <div className="book-shelf-changer">
                               <select name='shelf' value={book.shelf} onChange={(event)=>this.handleOnChange(event)}>
                                 <option value="move" disabled>Move to...</option>
@@ -80,9 +92,15 @@ return(
                                 <option selected value="none">None</option>
                               </select>
                             </div>
+                           
+                           
                           </div>
-                          <div className="book-title">{book.title}</div>
-                          <div className="book-authors"></div>
+                        
+                          
+<div className="book-title">{book.title}</div>
+                          
+{/* <div className="book-authors">You have {JSON.stringify(this.props.likes)} {this.props.likes[book.id]}</div> */}
+{JSON.stringify('idddd' + this.props.likes[book.id])}
 							{/* <div>
 {JSON.stringify(this.state)}
 							</div> */}
